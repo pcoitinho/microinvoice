@@ -14,7 +14,6 @@ function mi_add_meta_boxes() {
   );
 
   // TODO: Add status metabox
-  /*
   add_meta_box(
       'mi_invoice_status',
       __( 'Invoice Status', 'mi' ),
@@ -22,7 +21,6 @@ function mi_add_meta_boxes() {
       'invoice',
       'side'
   );
-  */
 
   // TODO: Add company metabox
   /*
@@ -123,12 +121,16 @@ function mi_invoice_company_meta_box() { ?>
 * Status metabox
 */
 
-function mi_invoice_status_meta_box() { ?>
+function mi_invoice_status_meta_box() {
+  global $post;
+  // get current status
+  $status = get_post_meta( $post->ID, 'invoice_status', true );
+  ?>
 
   <select name="mi_status">
-    <option value="canceled"><?php _e( 'Canceled', 'mi' ); ?></option>
-    <option value="pending"><?php _e( 'Pending', 'mi' ); ?></option>
-    <option value="complete"><?php _e( 'Complete', 'mi' ); ?></option>
+    <option value="canceled" <?php if( $status == 'canceled' ) { echo 'selected="selected"'; } ?>><?php _e( 'Canceled', 'mi' ); ?></option>
+    <option value="pending" <?php if( empty( $status) || $status == 'pending' ) { echo 'selected="selected"'; } ?>><?php _e( 'Pending', 'mi' ); ?></option>
+    <option value="complete" <?php if( $status == 'complete' ) { echo 'selected="selected"'; } ?>><?php _e( 'Complete', 'mi' ); ?></option>
   </select>
 
 <?php }
