@@ -6,4 +6,8 @@ function mi_enqueue_admin_scripts_styles( $hook ) {
     //wp_enqueue_style( 'mi_admin_jquery_ui', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/base/jquery-ui.css', false, false, false );
     wp_enqueue_script( 'mi_admin_invoice_js', $plugindir . '/js/admin_invoice.js', array( 'jquery', 'jquery-ui-spinner', 'jquery-ui-datepicker', 'jquery-ui-autocomplete' ), false, true );
   }
+
+  if ( $hook = 'profile.php' ) {
+    wp_enqueue_script( 'mi_admin_user_js', $plugindir . '/js/admin_user.js', array( 'jquery', 'jquery-ui-autocomplete' ), false, true );
+  }
 }

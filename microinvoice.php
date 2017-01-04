@@ -38,6 +38,17 @@ add_action( 'add_meta_boxes', 'mi_invoice_add_meta_boxes' );
 add_action( 'add_meta_boxes', 'mi_company_add_meta_boxes' );
 
 /**
+* Register company info
+*/
+
+include( 'inc/company_user_info.php' );
+
+add_action( 'show_user_profile', 'mi_show_user_profile' );
+add_action( 'edit_user_profile', 'mi_show_user_profile' );
+add_action( 'edit_user_profile_update', 'mi_save_profile_fields' );
+add_action( 'personal_options_update', 'mi_save_profile_fields' );
+
+/**
 * Post save behaviour
 */
 

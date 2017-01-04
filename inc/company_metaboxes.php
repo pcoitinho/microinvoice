@@ -13,6 +13,14 @@ function mi_company_add_meta_boxes() {
       'company'
   );
 
+  // People
+  add_meta_box(
+    'mi_company_people_meta_box',
+    __( 'People', 'mi' ),
+    'mi_company_people_meta_box',
+    'company'
+  );
+
 }
 
 
@@ -57,5 +65,41 @@ function mi_company_address_meta_box() {
       <input type="text" name="mi_address_country" value="<?php echo $address[ 'company_address_country' ]; ?>">
     </div>
   </div>
+
+<?php }
+
+function mi_company_people_meta_box() {
+    global $post;
+    // get users
+    $args = array(
+      'meta_key'     => 'company_id',
+      'meta_value'   => $post->ID
+    );
+
+    $query = new WP_User_Query( $args );
+
+    error_log( print_r( $query, true ) );
+
+  ?>
+
+  <table width="100%">
+    <thead>
+      <tr>
+        <th><?php _e( 'Name', 'mi' ); ?></th>
+        <th><?php _e( 'Role', 'mi' ); ?></th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php if ( ! empty( $query ) ) : foreach ( $query->results as $user ) :
+      ?>
+        <tr>
+          <td><?php echo $user->user_nicename; ?></td>
+          <td><?php echo get_user_meta( $user->ID, 'company_role', true )?></td>
+        </tr>
+      <?php endforeach; endif; ?>
+    </tbody>
+  </table>
+
+
 
 <?php }
