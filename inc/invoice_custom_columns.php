@@ -1,8 +1,10 @@
 <?php
 
 function mi_manage_edit_invoice_columns( $columns ) {
-	
+
+	unset( $columns[ 'date' ] );
 	$columns[ 'invoice_total' ] = __( 'Invoice Total', 'mi' );
+	$columns[ 'invoice_date']	= __( 'Payment date', 'mi' );
 	$columns[ 'invoice_status' ] = __( 'Status', 'mi' );
 
 	return $columns;
@@ -10,6 +12,16 @@ function mi_manage_edit_invoice_columns( $columns ) {
 
 function mi_manage_invoice_post_custom_column( $column, $post_id ) {
   switch ( $column ) {
+		case 'invoice_date' :
+			$date = get_post_meta( $post_id, 'invoice_date', true );
+
+			if ( empty( $date ) ) {
+				echo __( 'No date set', 'mi' );
+			} else {
+				echo $date;
+			}
+
+			break;
     case 'invoice_total':
       // get the invoice meta
       $items = get_post_meta( $post_id, 'invoice_items', true );

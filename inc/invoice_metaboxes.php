@@ -123,10 +123,17 @@ function mi_invoice_company_meta_box() { ?>
 
 function mi_invoice_status_meta_box() {
   global $post;
-  // get current status
+  // get current status and date
   $status = get_post_meta( $post->ID, 'invoice_status', true );
+  $date = get_post_meta( $post->ID, 'invoice_date', true );
   ?>
 
+  <label for="mi_date"><?php _e( 'Due date', 'mi' ); ?></label>
+  <input type="text" name="mi_date" id="mi_date" value="<?php if ( ! empty( $date ) ) { echo $date; } else { echo date('Y-m-d', time() + (7 * 24 * 60 * 60) ); } ?>">
+
+  <hr>
+
+  <label for="mi_status">Status</label>
   <select name="mi_status">
     <option value="canceled" <?php if( $status == 'canceled' ) { echo 'selected="selected"'; } ?>><?php _e( 'Canceled', 'mi' ); ?></option>
     <option value="pending" <?php if( empty( $status) || $status == 'pending' ) { echo 'selected="selected"'; } ?>><?php _e( 'Pending', 'mi' ); ?></option>

@@ -10,6 +10,11 @@
   // add spinners all around
   $( '.mi_spinner' ).spinner();
 
+  // add datepicker
+  $( '#mi_date' ).datepicker({
+    'dateFormat': 'yy-mm-dd'
+  });
+
   // add item
   $( '#mi_add_item' ).click( function() {
     var newItem = $( template.html() );

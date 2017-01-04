@@ -15,6 +15,11 @@ function mi_invoice_save_post_item( $post_id, $post) {
   // check nonce
   check_admin_referer( 'save_invoice', 'mi_save_invoice_item' );
 
+  // check date
+  if ( isset( $_POST[ 'mi_date' ] ) && ! empty( $_POST[ 'mi_date' ] ) ) {
+    update_post_meta( $post_id, 'invoice_date', sanitize_text_field( $_POST[ 'mi_date' ] ) );
+  }
+
   // check Status
   if ( isset( $_POST[ 'mi_status' ] ) && ! empty( $_POST[ 'mi_status' ] ) ) {
     update_post_meta( $post_id, 'invoice_status', sanitize_text_field( $_POST[ 'mi_status' ] ) );
