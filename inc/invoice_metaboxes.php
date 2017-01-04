@@ -3,7 +3,7 @@
 /**
 * Register Metaboxes
 */
-function mi_add_meta_boxes() {
+function mi_invoice_add_meta_boxes() {
 
   // Items
   add_meta_box(

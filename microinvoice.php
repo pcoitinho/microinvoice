@@ -32,16 +32,20 @@ add_action( 'admin_enqueue_scripts', 'mi_enqueue_admin_scripts_styles' );
 */
 
 include( 'inc/invoice_metaboxes.php' );
+include( 'inc/company_metaboxes.php');
 
-add_action( 'add_meta_boxes', 'mi_add_meta_boxes' );
+add_action( 'add_meta_boxes', 'mi_invoice_add_meta_boxes' );
+add_action( 'add_meta_boxes', 'mi_company_add_meta_boxes' );
 
 /**
 * Post save behaviour
 */
 
 include( 'inc/invoice_save_post.php' );
+include( 'inc/company_save_post.php' );
 
 add_action( 'save_post', 'mi_invoice_save_post_item', 10, 2 );
+add_action( 'save_post', 'mi_company_save_post', 10, 2 );
 
 /**
 * Register custom columns
