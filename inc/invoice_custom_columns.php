@@ -3,6 +3,7 @@
 function mi_manage_edit_invoice_columns( $columns ) {
 
 	unset( $columns[ 'date' ] );
+	$columns[ 'invoice_client' ] = __( 'Client', 'mi' );
 	$columns[ 'invoice_total' ] = __( 'Invoice Total', 'mi' );
 	$columns[ 'invoice_date']	= __( 'Payment date', 'mi' );
 	$columns[ 'invoice_status' ] = __( 'Status', 'mi' );
@@ -12,6 +13,17 @@ function mi_manage_edit_invoice_columns( $columns ) {
 
 function mi_manage_invoice_post_custom_column( $column, $post_id ) {
   switch ( $column ) {
+		case 'invoice_client' :
+
+			$company_id = intval( get_post_meta( $post_id, 'invoice_company_id', true ) );
+
+			if ( ! empty( $company_id ) ) {
+				echo get_the_title( $company_id );
+			} else {
+				echo __( 'No client', 'mi' );
+			}
+
+			break;
 		case 'invoice_date' :
 			$date = get_post_meta( $post_id, 'invoice_date', true );
 

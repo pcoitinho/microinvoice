@@ -51,3 +51,11 @@ include( 'inc/invoice_custom_columns.php' );
 
 add_filter( 'manage_edit-invoice_columns', 'mi_manage_edit_invoice_columns' );
 add_action( 'manage_invoice_posts_custom_column', 'mi_manage_invoice_post_custom_column', 5, 2 );
+
+/**
+* Register ajax actions
+*/
+
+include ( 'inc/ajax.php' );
+
+add_action( 'wp_ajax_invoice_list_companies', 'mi_ajax_list_clients' );

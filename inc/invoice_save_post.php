@@ -15,6 +15,11 @@ function mi_invoice_save_post_item( $post_id, $post) {
   // check nonce
   check_admin_referer( 'save_invoice', 'mi_save_invoice_item' );
 
+  // check company
+  if ( isset( $_POST[ 'mi_company_id' ] ) && ! empty( $_POST[ 'mi_company_id' ] ) ) {
+    update_post_meta( $post_id, 'invoice_company_id', intval( $_POST[ 'mi_company_id' ] ) );
+  }
+
   // check date
   if ( isset( $_POST[ 'mi_date' ] ) && ! empty( $_POST[ 'mi_date' ] ) ) {
     update_post_meta( $post_id, 'invoice_date', sanitize_text_field( $_POST[ 'mi_date' ] ) );
@@ -47,8 +52,6 @@ function mi_invoice_save_post_item( $post_id, $post) {
 
         }
       }
-
-      error_log( print_r( $items, true) );
 
       // update the post meta
       update_post_meta( $post_id, 'invoice_items', $items );

@@ -23,7 +23,6 @@ function mi_add_meta_boxes() {
   );
 
   // TODO: Add company metabox
-  /*
   add_meta_box(
     'mi_invoice_company',
     __( 'Company', 'mi' ),
@@ -31,7 +30,6 @@ function mi_add_meta_boxes() {
     'invoice',
     'side'
   );
-  */
 
 }
 
@@ -111,9 +109,20 @@ function mi_invoice_items_meta_box() {
 * Company metabox
 */
 
-function mi_invoice_company_meta_box() { ?>
+function mi_invoice_company_meta_box() {
+  global $post;
+  $company_name = '';
+  $company_id = intval( get_post_meta( $post->ID, 'invoice_company_id', true) );
+  if ( ! empty( $company_id ) ) {
+    $company_name = get_the_title( $company_id );
+  }
 
-  <input type="text" name="mi_company">
+?>
+
+
+  <input type="text" name="mi_company" id="mi_company" value="<?php echo $company_name; ?>" >
+  <button type="button" name="button"></button>
+  <input type="hidden" name="mi_company_id" id="mi_company_id" value="<?php echo $company_id; ?>">
 
 <?php }
 
