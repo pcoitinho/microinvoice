@@ -1,8 +1,9 @@
 <?php
 
 function mi_manage_edit_invoice_columns( $columns ) {
-
+	
 	$columns[ 'invoice_total' ] = __( 'Invoice Total', 'mi' );
+	$columns[ 'invoice_status' ] = __( 'Status', 'mi' );
 
 	return $columns;
 }
@@ -27,5 +28,16 @@ function mi_manage_invoice_post_custom_column( $column, $post_id ) {
       }
 
       break;
+		case 'invoice_status' :
+			// get status
+			$status = get_post_meta( $post_id, 'invoice_status', true);
+
+			if ( empty( $status ) ) { $status = 'pending'; }
+
+			// echo status
+			printf( '<span class="mi_status mi_status_%1s">%2s</span>', $status, __( ucwords( $status ), 'mi' ) );
+
+			break;
+
   }
 }
