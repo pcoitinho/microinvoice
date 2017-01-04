@@ -74,7 +74,7 @@ function mi_invoice_items_meta_box() {
     <tbody id="mi_invoice_items">
       <?php
         $invoice_total = 0.0;
-        foreach ($items as $item ) :
+        if ( ! empty( $items ) ) : foreach ($items as $item ) :
           $subtotal = intval( $item[ 'quantity' ] ) * floatval( $item[ 'value' ] );
           $invoice_total += $subtotal;
         ?>
@@ -85,7 +85,7 @@ function mi_invoice_items_meta_box() {
           <td><?php echo apply_filters( 'invoice_currency', '$'); ?><span class="mi_tot"><?php echo number_format( $subtotal, 2) ?> </span></td>
           <td><button type="button" class="button mi_remove_item"><?php _e( 'Remove', 'mi'); ?></button></td>
         </tr>
-      <?php endforeach; ?>
+      <?php endforeach; endif; ?>
     </tbody>
     <tfoot>
       <tr>
